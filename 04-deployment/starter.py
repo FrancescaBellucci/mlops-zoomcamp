@@ -59,7 +59,7 @@ def run():
     month = int(sys.argv[2]) #3
     taxi_color = sys.argv[3] #'yellow'
     
-    model_file = f'./model.bin'
+    model_file = './model.bin'
     input_file = f'https://d37ci6vzurychx.cloudfront.net/trip-data/{taxi_color}_tripdata_{year:04d}-{month:02d}.parquet'
     output_file = f'./output/predictions_{taxi_color}_tripdata_{year:04d}_{month:02d}.parquet'
     
