@@ -36,16 +36,23 @@ def prepare_dictionaries(df: pd.DataFrame):
 
 def apply_model(model_file, input_file, output_file, year, month):
     
+    print("Loading model")
+    
     with open(model_file, 'rb') as f_in:
         	dv, model = pickle.load(f_in)
     
+    print("Reading data")
     df = read_data(input_file)
+    
+    print("Preparing dictionaries")
     dicts = prepare_dictionaries(df)
     
+    print("Applying model")
     X_val = dv.transform(dicts)
     y_pred = model.predict(X_val)
     print("The mean predicted duration is ", y_pred.mean())
     
+    print("Saving results")
     df['ride_id'] = f'{year:04d}/{month:02d}_' + df.index.astype('str')
 
     df_result = pd.DataFrame({'ride_id':df['ride_id'], 'predicted_duration':y_pred})
