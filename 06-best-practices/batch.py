@@ -85,7 +85,7 @@ def main(year, month):
     df_result['predicted_duration'] = y_pred
 
 
-    df_result.to_parquet(output_file, engine='pyarrow', index=False)
+    save_data(output_file, df_result)
     
 
 if __name__ == "__main__":
