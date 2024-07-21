@@ -1,4 +1,4 @@
-### Bank Customer Churn Prediction 
+# Bank Customer Churn Prediction 
 
 This is my final project for the MLOps ZoomCamp. The goal is to build an end-to-end machine learning project applying all the tools and concepts seen in the course. 
 
