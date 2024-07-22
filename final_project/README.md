@@ -1,4 +1,4 @@
-### Bank Customer Churn Prediction 
+# Bank Customer Churn Prediction 
 
 This is my final project for the MLOps ZoomCamp. The goal is to build an end-to-end machine learning project applying all the tools and concepts seen in the course. 
 
@@ -14,7 +14,11 @@ The dataset used for this project contains information about bank customers, and
 
 The models chosen to tackle the problem are Isolation Forests and XGBoost. The methodology adopted is the following: 
 * An initial exploratory data analysis and first model experiments have been performed in jupyter notebook ([EDA]() and [first experiments]()), with the scope of defining a pre-processing method, selecting the models, and setting up the MLFlow toolkit.
+<<<<<<< HEAD
 * MLFow has been used for experiment tracking and model registry. Runs are saved locally and can be accessed via port 5000 after entering the following line in the terminal:
+=======
+* MLFow has been used for experiment tracking and model registry. Runs are saved locally and can be accessed via port 5000 after entering the following line in the terminal (from the project folder):
+>>>>>>> 7d3ccbb46792f4bbb135cbdda5db63acdb588a1d
 ```` mlflow server --backend-store-uri sqlite:///bank_churn.db --default-artifact-root ./artifacts ````
 
 
