@@ -1,0 +1,27 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+mlflow = "*"
+jupyter = "*"
+scikit-learn = "1.5.1"
+pandas = "*"
+seaborn = "*"
+optuna = "*"
+xgboost = "*"
+ipykernel = "*"
+prefect = "*"
+flask = "*"
+gunicorn = "*"
+jsonschema = "4.5"
+jinja2 = "3.0.3" 
+colorama = "*"
+
+[dev-packages]
+requests = "*"
+django = "*"
+
+[requires]
+python_version = "3.9.12"
