@@ -17,32 +17,58 @@ import pickle
 from prefect import task, flow
 from prefect.task_runners import SequentialTaskRunner
 
+### Global Variables ### 
+RANDOM_STATE = 2024
+
+MLFLOW_TRACKING_URI = "sqlite:///../bank_churn.db"
+
+N_TRIALS = 50
+
+ISF_VARIABLES = ['Age','Complain','NumOfProducts'] 
+TARGET = 'Exited'
+DATA_FILE = "../data/customer_churn_records.parquet"
+
 ### Prefect Tasks ###
 
 @task
-def preprocess_data(file_path: str):
-    
+def read_data(file_path: str):
+        
+    print("Reading data...")
     data = pd.read_parquet(file_path)
-
+    
+    print("Removing unused columns...")
     columns_to_drop = ['RowNumber','CustomerId','Surname']
-    data.drop(columns_to_drop, 
-          axis = 1, inplace = True)
+    
+    data.drop(columns_to_drop, axis = 1, inplace = True)
+    
+    return data
+
+@task
+def preprocess_data(data: pd.DataFrame):
+    
+    print("Preprocessing Data...")
     
     categorical_variables = ['Geography', 'Gender', 'Card Type']
     
     data[categorical_variables] = data[categorical_variables].astype('category')
+    
+    print("Data read and preprocessed.")
     
     return(data)
 
 @task
 def prepare_dataset(data: pd.DataFrame, save_data: bool):
     
+    print("Splitting into training and validation set...")
     test_size = 0.2
     train_data, val_data = train_test_split(data, test_size=test_size, random_state=RANDOM_STATE)
     
     if save_data == True:
+        print("Saving training and validation set...")
         train_data.to_parquet('../data/customer_churn_training_data.parquet', engine="pyarrow")
         val_data.to_parquet('../data/customer_churn_validation_data.parquet', engine="pyarrow")
+    
+    print("Dataset prepared.")
     
     return train_data, val_data
 
@@ -50,6 +76,7 @@ def prepare_dataset(data: pd.DataFrame, save_data: bool):
 def optimize_model(model_name: str, train_data: pd.DataFrame, val_data: pd.DataFrame):
        
     if model_name == "xgboost":
+        print("Preparing data for XGBoost...")
         X_train, y_train, X_val, y_val, train_matrix, val_matrix = preparing_xgboost_data(train_data,val_data)
     
     # Objective function for xgboost
@@ -103,7 +130,7 @@ def optimize_model(model_name: str, train_data: pd.DataFrame, val_data: pd.DataF
             params = {
                 'n_estimators': trial.suggest_int('n_estimators', 10, 500, 10),
                 'contamination': trial.suggest_discrete_uniform('contamination', 0.05, 0.5, 0.05),
-                'max_features': trial.suggest_int('max_features', 1, 4),
+                'max_features': trial.suggest_int('max_features', 1, 3),
                 'bootstrap': True,
                 'warm_start': True,
                 'random_state': RANDOM_STATE
@@ -116,7 +143,7 @@ def optimize_model(model_name: str, train_data: pd.DataFrame, val_data: pd.DataF
             
             anomalies = isf.predict(val_data[ISF_VARIABLES])
             
-            pct_returning, pct_inliers = compute_isf_metrics(val_data[ISF_VARIABLES], anomalies)
+            pct_returning, pct_inliers = compute_isf_metrics(val_data, anomalies)
             score = (1 - pct_returning)*(1 - pct_inliers)
             
             mlflow.log_metric("pct_returning", pct_returning)
@@ -128,12 +155,16 @@ def optimize_model(model_name: str, train_data: pd.DataFrame, val_data: pd.DataF
         return score
     
     study = optuna.create_study(direction='minimize' if model_name == "isolation_forest" else "maximize") 
+    print("Tuning hyperparameters...")
     study.optimize(objective_isf if model_name=="isolation_forest" else objective_xgb, n_trials=N_TRIALS) 
+    print(model_name, "model optimized.")
     
     return study.best_trial
 
 @task
 def register_model(best_trial, model_name: str):
+    
+    print("Fitting best model...")
     
     if model_name == "isolation_forest":
         model = IsolationForest(**best_trial.params)
@@ -141,10 +172,12 @@ def register_model(best_trial, model_name: str):
     else:
         model = xgb.XGBClassifier(**best_trial.params, enable_categorical=True)
     
+    print("Registering best model...")
+    
     model_path = '../models/'+ model_name + '.bin'
     
     #client = MlflowClient("http://127.0.0.1:5000")
-    client.search_registered_models()
+    #client.search_registered_models()
     
     run_id = client.search_runs(experiment_ids=['1'])[N_TRIALS - best_trial.number].info.run_id
     
@@ -153,10 +186,13 @@ def register_model(best_trial, model_name: str):
         name=model_name
     )
     
+    print("Saving best model...")
     with open(model_path, 'wb') as f_out:
         pickle.dump(model, f_out)
     
     mlflow.end_run()
+    
+    print("Model promoted to registry and saved.")
     
     return None
 
@@ -169,7 +205,8 @@ def train_model(model_name: str, data_file: str, save_data: bool):
         print("Error: unknown model. model_name can only be \"isolation_forest\" or \"xgboost\".")
         return None
     
-    data = preprocess_data(data_file)
+    data = read_data(data_file)
+    data = preprocess_data(data)
     train_data, val_data = prepare_dataset(data, save_data)  
     optimized_model = optimize_model(model_name, train_data, val_data)
     register_model(optimized_model, model_name)    
@@ -203,20 +240,13 @@ def preparing_xgboost_data(train_data: pd.DataFrame, val_data: pd.DataFrame):
 
 if __name__ == "__main__":
     
-    RANDOM_STATE = 2024
-    
-    MLFLOW_TRACKING_URI = "sqlite:///../bank_churn.db"
+
     mlflow.set_tracking_uri(MLFLOW_TRACKING_URI)
     mlflow.set_experiment("bank_churn_prediction")
     client = MlflowClient(tracking_uri=MLFLOW_TRACKING_URI)
     
-    N_TRIALS = 5
-    
-    ISF_VARIABLES = ['Exited', 'Age','CreditScore','NumOfProducts'] 
-    TARGET = 'Exited'
-    
-    model = "xgboost"
-    data_file = "../data/customer_churn_records.parquet"
+    #Edit these to change model and possibility to save data
+    model = "isolation_forest"
     save_data = False
      
-    train_model(model, data_file, save_data)
+    train_model(model, DATA_FILE, save_data)
