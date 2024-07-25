@@ -20,3 +20,4 @@ The content of the columns is the following:
 * __Satisfaction Score__ — (integer) — Score provided by the customer for their complaint resolution.
 * __Card Type__ — (string) — Categorical variable indicating the type of card held by the customer.
 * __Points Earned__ — (integer) — Reward points earned by the customer for using their credit card.
+
