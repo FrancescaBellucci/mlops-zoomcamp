@@ -1,4 +1,4 @@
-### Data Dictionary
+# Data Dictionary
 
 _customer_churn_records.parquet_ is the main dataset used for this project. It consists of 10,000 records and 18 columns. 
 The content of the columns is the following:
