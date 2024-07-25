@@ -9,7 +9,7 @@ The objective of this project is to predict whether a bank customer is likely to
 
 ## Dataset
 
-The dataset used for this project contains information about bank customers, and can be found on [Kaggle](https://www.kaggle.com/datasets/radheshyamkollipara/bank-customer-churn). For more information related to the dataset, you can consult the [data dictionary]([https://github.com/FrancescaBellucci/mlops-zoomcamp/blob/main/final_project/data/README.md](https://github.com/FrancescaBellucci/mlops-zoomcamp/blob/main/final_project/data/data_dictionary.md)).
+The dataset used for this project contains information about bank customers, and can be found on [Kaggle](https://www.kaggle.com/datasets/radheshyamkollipara/bank-customer-churn). For more information related to the dataset, you can consult the [data dictionary]([https://github.com/FrancescaBellucci/mlops-zoomcamp/blob/main/final_project/data/README.md](https://github.com/FrancescaBellucci/mlops-zoomcamp/blob/main/final_project/data/data_dictionary.md).
 
 ## Project Outline
 
