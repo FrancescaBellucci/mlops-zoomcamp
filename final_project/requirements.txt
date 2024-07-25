@@ -9,6 +9,7 @@ mlflow
 prefect
 flask
 gunicorn
+pipenv
 
 #jsonschema>=4.5 for prefect
 #jinja2 == 3.0.3 for MlFlow
