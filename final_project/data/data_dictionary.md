@@ -1,6 +1,6 @@
 ### Data Dictionary
 
-The dataset used for this project consists of 10,000 records and 18 columns. 
+_customer_churn_records.parquet_ is the main dataset used for this project. It consists of 10,000 records and 18 columns. 
 The content of the columns is the following:
 * __RowNumber__ — (integer) — Row index in the dataset.
 * __CustomerId__ — (integer) — 8-digit number that serves as a unique identifier for customers.
