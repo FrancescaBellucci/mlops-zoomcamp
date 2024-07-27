@@ -32,11 +32,15 @@ def load_model(model_name: str):
     if model_name not in ["isolation_forest","xgboost"]:
         print("Error: unknown model. model_name can only be \"isolation_forest\" or \"xgboost\".")
         return None
+
+    print("Loading model...")
     
     model_path = '../models/'+ model_name + '.bin' 
     
     with open(model_path,'rb') as f:
         model = pickle.load(f)
+
+    print("Model loaded.")
         
     return model
         
@@ -46,20 +50,25 @@ def fit_model(model, train_data: pd.DataFrame):
     if type(model) not in [xgb.sklearn.XGBClassifier,sklearn.ensemble._iforest.IsolationForest]:
         print("Error: model unknown. The only acceptable types of models are isolation forest and xgboost.")  
         return None
-           
+
+    print("Fitting model...")
+    
     if type(model) == xgb.sklearn.XGBClassifier:
         X_train = train_data.drop(TARGET, axis=1)
         y_train = train_data[TARGET]
 
         model.fit(X_train, y_train)
-
         
     else:        
         model.fit(train_data[ISF_VARIABLES])
+
+    print("Model fit.")
         
     return None
 
 def compute_predictions(model, pred_data: pd.DataFrame):
+
+    print("Computing predictions...")
     
     if type(model) not in [xgb.sklearn.XGBClassifier,sklearn.ensemble._iforest.IsolationForest]:
         print("Error: model unknown. The only acceptable types of models are isolation forest and xgboost.")
