@@ -6,7 +6,7 @@ The following paragraphs will give an overview of the problem, the dataset, and 
 
 ## Problem Description
 
-The objective of this project is to predict whether a bank customer is likely to change provider or not. Churn is rather costly for any company, therefore there is an interest in knowing in advance which customers are more likely to leave, in order to be able to prevent the possible churn or actuate risk/loss mitigation procedures. aMachine Learning can help identifying potential quitters before they leave, allowing the bank to act on it in advance. 
+The objective of this project is to predict whether a bank customer is likely to change provider or not. Churn is rather costly for any company, therefore there is an interest in knowing in advance which customers are more likely to leave, in order to be able to prevent the possible churn or actuate risk/loss mitigation procedures. Machine Learning models can help identifying potential quitters before they leave, allowing the bank to act on it in advance. 
 
 ## Dataset
 
