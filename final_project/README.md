@@ -17,7 +17,7 @@ The models chosen to tackle the problem are Isolation Forests and XGBoost. The m
 * An initial exploratory data analysis and first model experiments have been performed in two separate jupyter notebooks (stored in the [code](https://github.com/FrancescaBellucci/mlops-zoomcamp/blob/main/final_project/code/) folder), with the scope of defining a pre-processing method, selecting the models, and setting up the MLFlow toolkit.
 * MLFow has been used for experiment tracking and model registry. Runs are saved locally and can be accessed via port 5000 after entering the following line in the terminal:
 ```` mlflow server --backend-store-uri sqlite:///bank_churn.db --default-artifact-root ../artifacts ````
-* Prefect has been used for pipelines. The prefect server is allocated on port 4200 and the UI can be assessed via [this link](http://127.0.0.1:4200) after starting the server from the terminal.
+* Prefect has been used for pipelines. The prefect server is allocated on port 4200 and the UI can be accessed via [this link](http://127.0.0.1:4200) after starting the server from the terminal.
 * The model is deployed as a web service, hosted at port 9696. The app is wrapped in a a Docker container. 
 
 
