@@ -2,7 +2,7 @@
 
 This is my final project for the [MLOps ZoomCamp](https://github.com/DataTalksClub/mlops-zoomcamp/tree/main) course. The goal is to build an end-to-end machine learning project applying all the tools and concepts seen in the course. 
 For each subfolder, you will find a README file describing its content and explaining the methodology and the logic behind the choices I made.
-The following paragraphs will give an overview of the problem, the dataset, and the adopted methodology. You can skip to the instructions by clicking [here](https://github.com/FrancescaBellucci/mlops-zoomcamp/edit/main/final_project/README#Instructions)
+The following paragraphs will give an overview of the problem, the dataset, and the adopted methodology. You can skip to the instructions by clicking [here](#Instructions)
 
 ## Problem Description
 
@@ -21,7 +21,8 @@ The models chosen to tackle the problem are Isolation Forests and XGBoost. The m
 * Prefect has been used for pipelines. The prefect server is allocated on port 4200 and the UI can be accessed via [this link](http://127.0.0.1:4200) after starting the server from the terminal.
 * The model is deployed as a web service, hosted at port 9696. The app is wrapped in a a Docker container. 
 
-## Instructions {#Instructions}
+## Instructions
+
 
 
 
