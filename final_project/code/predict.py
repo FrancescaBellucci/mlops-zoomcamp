@@ -9,12 +9,16 @@ from xgboost import XGBClassifier
 
 import pickle
 
+from prefect import task, flow
+from prefect.task_runners import SequentialTaskRunner
+
 from flask import Flask, request, jsonify
 
 from model_training import ISF_VARIABLES, TARGET
 
-### Auxiliary Methods ###
+### Prefect Tasks ###
 
+@task
 def preprocess_data(data: pd.DataFrame):
     
     print("Preprocessing Data...")
@@ -27,6 +31,7 @@ def preprocess_data(data: pd.DataFrame):
     
     return(data)
 
+@task
 def load_model(model_name: str):
     
     if model_name not in ["isolation_forest","xgboost"]:
@@ -44,7 +49,7 @@ def load_model(model_name: str):
         
     return model
         
-
+@task
 def fit_model(model, train_data: pd.DataFrame):   
     
     if type(model) not in [xgb.sklearn.XGBClassifier,sklearn.ensemble._iforest.IsolationForest]:
@@ -65,7 +70,8 @@ def fit_model(model, train_data: pd.DataFrame):
     print("Model fit.")
         
     return None
-
+    
+@task
 def compute_predictions(model, pred_data: pd.DataFrame):
 
     print("Computing predictions...")
@@ -84,6 +90,7 @@ def compute_predictions(model, pred_data: pd.DataFrame):
 
 ### Main Method ###
 
+@flow((task_runner=SequentialTaskRunner())
 def make_predictions(pred_data): 
     
     train_data_path = "../data/customer_churn_training_data.parquet"
@@ -124,30 +131,4 @@ def get_request():
 if __name__ == "__main__":    
     app.run(debug=True, host='0.0.0.0', port=9696)
     
-    
-# Old function, for input dataset
-#
-# def make_predictions(pred_data): 
-    
-#     train_data_path = "../data/customer_churn_training_data.parquet"
-    
-#     pred_data = preprocess_data(pred_data)
-#     train_data = pd.read_parquet(train_data_path)
-    
-#     isf = load_model("isolation_forest")
-#     fit_model(isf, train_data)
-#     anomalies = compute_predictions(isf, pred_data)
-    
-#     pred_data['Predictions'] = 1-anomalies
-#     idx_outliers = pred_data[pred_data['Predictions'] == 2].index
-    
-#     xgb_classifier = load_model("xgboost")
-#     fit_model(xgb_classifier, train_data)
-#     X_pred = pred_data[pred_data['Predictions']==2].drop(['Predictions'], axis=1)
-#     pred_xgb = compute_predictions(xgb_classifier, X_pred)
-    
-#     pred_data.loc[idx_outliers, "Predictions"] = pred_xgb
-#     y_pred = pred_data["Predictions"].values
-    
-#     return y_pred
 
