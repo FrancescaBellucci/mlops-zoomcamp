@@ -1,0 +1,392 @@
+{
+  "id": "a57cdf13-429c-4d29-a079-43b4a5562442",
+  "name": null,
+  "timestamp": "2024-08-10T13:02:36.442195",
+  "metadata": {
+    "metric_presets": [
+      "ClassificationPreset"
+    ]
+  },
+  "tags": [],
+  "suite": {
+    "metrics": [
+      {
+        "probas_threshold": null,
+        "k": null,
+        "type": "evidently.metrics.classification_performance.confusion_matrix_metric.ClassificationConfusionMatrix",
+        "options": {
+          "color": null,
+          "render": null,
+          "custom": {},
+          "data_definition": null
+        }
+      },
+      {
+        "type": "evidently.metrics.classification_performance.classification_quality_metric.ClassificationQualityMetric",
+        "options": {
+          "color": null,
+          "render": null,
+          "custom": {},
+          "data_definition": null
+        },
+        "probas_threshold": null,
+        "k": null
+      },
+      {
+        "type": "evidently.metrics.classification_performance.class_balance_metric.ClassificationClassBalance",
+        "options": {
+          "color": null,
+          "render": null,
+          "custom": {},
+          "data_definition": null
+        }
+      },
+      {
+        "type": "evidently.metrics.classification_performance.quality_by_class_metric.ClassificationQualityByClass",
+        "options": {
+          "color": null,
+          "render": null,
+          "custom": {},
+          "data_definition": null
+        },
+        "probas_threshold": null,
+        "k": null
+      },
+      {
+        "type": "evidently.metrics.classification_performance.quality_by_feature_table.ClassificationQualityByFeatureTable",
+        "options": {
+          "color": null,
+          "render": null,
+          "custom": {},
+          "data_definition": null
+        },
+        "columns": null,
+        "descriptors": null
+      }
+    ],
+    "metric_results": [
+      {
+        "type": "evidently.metrics.classification_performance.confusion_matrix_metric.ClassificationConfusionMatrixResult",
+        "current_matrix": {
+          "type": "evidently.metric_results.ConfusionMatrix",
+          "labels": [
+            0,
+            1
+          ],
+          "values": [
+            [
+              1589,
+              2
+            ],
+            [
+              1,
+              408
+            ]
+          ]
+        },
+        "reference_matrix": {
+          "type": "evidently.metric_results.ConfusionMatrix",
+          "labels": [
+            0,
+            1
+          ],
+          "values": [
+            [
+              1589,
+              2
+            ],
+            [
+              1,
+              408
+            ]
+          ]
+        },
+        "target_names": null
+      },
+      {
+        "type": "evidently.metrics.classification_performance.classification_quality_metric.ClassificationQualityMetricResult",
+        "current": {
+          "type": "evidently.metric_results.DatasetClassificationQuality",
+          "accuracy": 0.9985,
+          "precision": 0.9951219512195122,
+          "recall": 0.9975550122249389,
+          "f1": 0.9963369963369964,
+          "roc_auc": null,
+          "log_loss": null,
+          "tpr": 0.9975550122249389,
+          "tnr": 0.9987429289754871,
+          "fpr": 0.001257071024512885,
+          "fnr": 0.0024449877750611247,
+          "rate_plots_data": null,
+          "plot_data": null
+        },
+        "reference": {
+          "type": "evidently.metric_results.DatasetClassificationQuality",
+          "accuracy": 0.9985,
+          "precision": 0.9951219512195122,
+          "recall": 0.9975550122249389,
+          "f1": 0.9963369963369964,
+          "roc_auc": null,
+          "log_loss": null,
+          "tpr": 0.9975550122249389,
+          "tnr": 0.9987429289754871,
+          "fpr": 0.001257071024512885,
+          "fnr": 0.0024449877750611247,
+          "rate_plots_data": null,
+          "plot_data": null
+        },
+        "target_name": "Exited"
+      },
+      {
+        "type": "evidently.metrics.classification_performance.class_balance_metric.ClassificationClassBalanceResult",
+        "plot_data": {
+          "type": "evidently.metric_results.Histogram",
+          "current": {
+            "type": "evidently.metric_results.HistogramData",
+            "x": [
+              "0",
+              "1"
+            ],
+            "count": [
+              1591,
+              409
+            ],
+            "name": null
+          },
+          "reference": {
+            "type": "evidently.metric_results.HistogramData",
+            "x": [
+              "0",
+              "1"
+            ],
+            "count": [
+              1591,
+              409
+            ],
+            "name": null
+          },
+          "current_log": null,
+          "reference_log": null
+        }
+      },
+      {
+        "type": "evidently.metrics.classification_performance.quality_by_class_metric.ClassificationQualityByClassResult",
+        "columns": {
+          "type": "evidently.metric_results.DatasetColumns",
+          "utility_columns": {
+            "type": "evidently.metric_results.DatasetUtilityColumns",
+            "date": null,
+            "id": null,
+            "target": "Exited",
+            "prediction": "Predictions"
+          },
+          "target_type": "cat",
+          "num_feature_names": [
+            "Age",
+            "Balance",
+            "Complain",
+            "CreditScore",
+            "EstimatedSalary",
+            "Exited",
+            "HasCrCard",
+            "IsActiveMember",
+            "NumOfProducts",
+            "Point Earned",
+            "Satisfaction Score",
+            "Tenure"
+          ],
+          "cat_feature_names": [
+            "Geography",
+            "Gender",
+            "Card Type"
+          ],
+          "text_feature_names": [],
+          "datetime_feature_names": [],
+          "target_names": null,
+          "task": "classification"
+        },
+        "current": {
+          "type": "evidently.metrics.classification_performance.quality_by_class_metric.ClassificationQuality",
+          "metrics": {
+            "0": {
+              "type": "evidently.metrics.classification_performance.objects.ClassMetric",
+              "precision": 0.9993710691823899,
+              "recall": 0.9987429289754871,
+              "f1": 0.9990569003458032,
+              "support": 1591.0
+            },
+            "1": {
+              "type": "evidently.metrics.classification_performance.objects.ClassMetric",
+              "precision": 0.9951219512195122,
+              "recall": 0.9975550122249389,
+              "f1": 0.9963369963369964,
+              "support": 409.0
+            }
+          },
+          "roc_aucs": null
+        },
+        "reference": {
+          "type": "evidently.metrics.classification_performance.quality_by_class_metric.ClassificationQuality",
+          "metrics": {
+            "0": {
+              "type": "evidently.metrics.classification_performance.objects.ClassMetric",
+              "precision": 0.9993710691823899,
+              "recall": 0.9987429289754871,
+              "f1": 0.9990569003458032,
+              "support": 1591.0
+            },
+            "1": {
+              "type": "evidently.metrics.classification_performance.objects.ClassMetric",
+              "precision": 0.9951219512195122,
+              "recall": 0.9975550122249389,
+              "f1": 0.9963369963369964,
+              "support": 409.0
+            }
+          },
+          "roc_aucs": null
+        }
+      },
+      {
+        "type": "evidently.metrics.classification_performance.quality_by_feature_table.ClassificationQualityByFeatureTableResults",
+        "current": {
+          "type": "evidently.metric_results.StatsByFeature",
+          "plot_data": {},
+          "predictions": null
+        },
+        "reference": null,
+        "target_name": "",
+        "columns": []
+      }
+    ],
+    "tests": [],
+    "test_results": [],
+    "options": {
+      "color": null,
+      "render": null,
+      "custom": {},
+      "data_definition": null
+    },
+    "data_definition": {
+      "columns": {
+        "Exited": {
+          "column_name": "Exited",
+          "column_type": "num"
+        },
+        "Predictions": {
+          "column_name": "Predictions",
+          "column_type": "cat"
+        },
+        "CreditScore": {
+          "column_name": "CreditScore",
+          "column_type": "num"
+        },
+        "Age": {
+          "column_name": "Age",
+          "column_type": "num"
+        },
+        "Tenure": {
+          "column_name": "Tenure",
+          "column_type": "num"
+        },
+        "Balance": {
+          "column_name": "Balance",
+          "column_type": "num"
+        },
+        "NumOfProducts": {
+          "column_name": "NumOfProducts",
+          "column_type": "num"
+        },
+        "HasCrCard": {
+          "column_name": "HasCrCard",
+          "column_type": "num"
+        },
+        "IsActiveMember": {
+          "column_name": "IsActiveMember",
+          "column_type": "num"
+        },
+        "EstimatedSalary": {
+          "column_name": "EstimatedSalary",
+          "column_type": "num"
+        },
+        "Complain": {
+          "column_name": "Complain",
+          "column_type": "num"
+        },
+        "Satisfaction Score": {
+          "column_name": "Satisfaction Score",
+          "column_type": "num"
+        },
+        "Point Earned": {
+          "column_name": "Point Earned",
+          "column_type": "num"
+        },
+        "Geography": {
+          "column_name": "Geography",
+          "column_type": "cat"
+        },
+        "Gender": {
+          "column_name": "Gender",
+          "column_type": "cat"
+        },
+        "Card Type": {
+          "column_name": "Card Type",
+          "column_type": "cat"
+        }
+      },
+      "target": {
+        "column_name": "Exited",
+        "column_type": "num"
+      },
+      "prediction_columns": {
+        "predicted_values": {
+          "column_name": "Predictions",
+          "column_type": "cat"
+        },
+        "prediction_probas": null
+      },
+      "id_column": null,
+      "datetime_column": null,
+      "embeddings": null,
+      "user_id": null,
+      "item_id": null,
+      "task": "regression",
+      "classification_labels": [
+        0,
+        1
+      ],
+      "reference_present": true,
+      "recommendations_type": "score"
+    },
+    "run_metadata": {
+      "descriptors": {}
+    }
+  },
+  "metrics_ids": [
+    1,
+    2,
+    0,
+    3,
+    4
+  ],
+  "test_ids": [],
+  "options": {
+    "color": null,
+    "render": null,
+    "custom": {},
+    "data_definition": null
+  },
+  "links": {
+    "datasets": {
+      "input": {
+        "reference": null,
+        "current": null,
+        "additional": {}
+      },
+      "output": {
+        "reference": null,
+        "current": null,
+        "additional": {}
+      }
+    }
+  }
+}

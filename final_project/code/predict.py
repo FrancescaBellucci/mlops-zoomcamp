@@ -90,7 +90,7 @@ def compute_predictions(model, pred_data: pd.DataFrame):
 
 ### Main Method ###
 
-@flow((task_runner=SequentialTaskRunner())
+@flow(task_runner=SequentialTaskRunner())
 def make_predictions(pred_data): 
     
     train_data_path = "../data/customer_churn_training_data.parquet"

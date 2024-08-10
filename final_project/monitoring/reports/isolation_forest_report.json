@@ -1,0 +1,156 @@
+{
+  "id": "4301602d-ad0c-4276-a588-975a25fcbd7b",
+  "name": null,
+  "timestamp": "2024-08-10T13:02:36.442195",
+  "metadata": {},
+  "tags": [],
+  "suite": {
+    "metrics": [
+      {
+        "type": "__main__.MyMetric",
+        "options": {
+          "color": null,
+          "render": null,
+          "custom": {},
+          "data_definition": null
+        },
+        "column_name": "Anomalies"
+      }
+    ],
+    "metric_results": [
+      {
+        "type": "__main__.MyMetricResult",
+        "pct_returning_cur": 1.0,
+        "pct_inliers_cur": 0.567,
+        "pct_returning_ref": 1.0,
+        "pct_inliers_ref": 0.567
+      }
+    ],
+    "tests": [],
+    "test_results": [],
+    "options": {
+      "color": null,
+      "render": null,
+      "custom": {},
+      "data_definition": null
+    },
+    "data_definition": {
+      "columns": {
+        "Exited": {
+          "column_name": "Exited",
+          "column_type": "num"
+        },
+        "Predictions": {
+          "column_name": "Predictions",
+          "column_type": "cat"
+        },
+        "CreditScore": {
+          "column_name": "CreditScore",
+          "column_type": "num"
+        },
+        "Age": {
+          "column_name": "Age",
+          "column_type": "num"
+        },
+        "Tenure": {
+          "column_name": "Tenure",
+          "column_type": "num"
+        },
+        "Balance": {
+          "column_name": "Balance",
+          "column_type": "num"
+        },
+        "NumOfProducts": {
+          "column_name": "NumOfProducts",
+          "column_type": "num"
+        },
+        "HasCrCard": {
+          "column_name": "HasCrCard",
+          "column_type": "num"
+        },
+        "IsActiveMember": {
+          "column_name": "IsActiveMember",
+          "column_type": "num"
+        },
+        "EstimatedSalary": {
+          "column_name": "EstimatedSalary",
+          "column_type": "num"
+        },
+        "Complain": {
+          "column_name": "Complain",
+          "column_type": "num"
+        },
+        "Satisfaction Score": {
+          "column_name": "Satisfaction Score",
+          "column_type": "num"
+        },
+        "Point Earned": {
+          "column_name": "Point Earned",
+          "column_type": "num"
+        },
+        "Geography": {
+          "column_name": "Geography",
+          "column_type": "cat"
+        },
+        "Gender": {
+          "column_name": "Gender",
+          "column_type": "cat"
+        },
+        "Card Type": {
+          "column_name": "Card Type",
+          "column_type": "cat"
+        }
+      },
+      "target": {
+        "column_name": "Exited",
+        "column_type": "num"
+      },
+      "prediction_columns": {
+        "predicted_values": {
+          "column_name": "Predictions",
+          "column_type": "cat"
+        },
+        "prediction_probas": null
+      },
+      "id_column": null,
+      "datetime_column": null,
+      "embeddings": null,
+      "user_id": null,
+      "item_id": null,
+      "task": "regression",
+      "classification_labels": [
+        0,
+        1
+      ],
+      "reference_present": true,
+      "recommendations_type": "score"
+    },
+    "run_metadata": {
+      "descriptors": {}
+    }
+  },
+  "metrics_ids": [
+    0
+  ],
+  "test_ids": [],
+  "options": {
+    "color": null,
+    "render": null,
+    "custom": {},
+    "data_definition": null
+  },
+  "links": {
+    "datasets": {
+      "input": {
+        "reference": null,
+        "current": null,
+        "additional": {}
+      },
+      "output": {
+        "reference": null,
+        "current": null,
+        "additional": {}
+      }
+    }
+  }
+}
