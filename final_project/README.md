@@ -19,7 +19,8 @@ The models chosen to tackle the problem are Isolation Forests and XGBoost. The m
 * MLFow has been used for experiment tracking and model registry. Runs are saved locally and can be accessed via port 5000 after entering the following line in the terminal:
 ```` mlflow server --backend-store-uri sqlite:///bank_churn.db --default-artifact-root ../artifacts ````
 * Prefect has been used for pipelines. The prefect server is allocated on port 4200 and the UI can be accessed via [this link](http://127.0.0.1:4200) after starting the server from the terminal.
-* The model is deployed locally and requests can be sent through port 9696. The app is wrapped in a a Docker container. 
+* The model is deployed locally and requests can be sent through port 9696. The app is wrapped in a a Docker container.
+* Monitoring is done using Evidently AI. Data drift and model performances are tracked. Email alerts are sent in case of data drift or performance degradation, and, if data drift is detected, models are retrained and updated.  
 
 ## Instructions
 
