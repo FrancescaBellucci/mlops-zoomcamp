@@ -26,6 +26,12 @@ from prefect.task_runners import SequentialTaskRunner
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail, HtmlContent
 
+from pathlib import Path
+import sys
+
+parent_dir = Path(__file__).resolve().parent
+sys.path.insert(0, str(parent_dir))
+
 ### Global variables 
 
 CURRENT_DATA_PATH = '../data/'

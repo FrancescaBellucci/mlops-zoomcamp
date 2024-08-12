@@ -17,6 +17,12 @@ import pickle
 from prefect import task, flow
 from prefect.task_runners import SequentialTaskRunner
 
+from pathlib import Path
+import sys
+
+parent_dir = Path(__file__).resolve().parent
+sys.path.insert(0, str(parent_dir))
+
 ### Global Variables ### 
 RANDOM_STATE = 2024
 

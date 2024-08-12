@@ -16,6 +16,12 @@ from flask import Flask, request, jsonify
 
 from model_training import ISF_VARIABLES, TARGET
 
+from pathlib import Path
+import sys
+
+parent_dir = Path(__file__).resolve().parent
+sys.path.insert(0, str(parent_dir))
+
 ### Prefect Tasks ###
 
 @task
