@@ -12,6 +12,11 @@ gunicorn==22.0.0
 pipenv==2024.0.1
 evidently==0.4.33
 sendgrid==6.0.5
+datetime
+pytest
+unittest
+pathlib
+sys
 
 #backports.tarfile to solve bug for numpy>2 and python 3.9
 #jsonschema>=4.5 for prefect
