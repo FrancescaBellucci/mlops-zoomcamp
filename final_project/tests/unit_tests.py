@@ -11,7 +11,6 @@ from unittest.mock import patch
 from pytest import approx
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import code.model_training as model_training
 import code.predict as predict
