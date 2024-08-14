@@ -16,7 +16,9 @@ plotly==5.23.0
 evidently==0.4.33
 sendgrid==6.0.5
 pytest==7.1.1
-
+pylint==3.2.6
+black==24.8.0
+isort==5.9.3
 
 backports.tarfile==1.2.0 #to ensure sendgrid compatibility
 jsonschema==4.23.0    #>=4.5 for prefect

@@ -30,6 +30,9 @@ django = "*"
 sendgrid=="6.0.5"
 backports.tarfile=="1.2.0"
 pytest=="7.1.1"
+pylint=="3.2.6"
+black="124.8.0"
+isort="5.9.3"
 
 [requires]
 python_version = "3.9.12"
