@@ -5,13 +5,6 @@ import datetime
 from typing import List, Optional
 from pathlib import Path
 from code.predict import fit_model, load_model, compute_predictions
-
-import numpy as np
-import pandas as pd
-from plotly import graph_objs as go
-from prefect import flow, task
-from sendgrid import SendGridAPIClient
-from evidently import ColumnMapping
 from code.model_training import (
     TARGET,
     DATA_FILE,
@@ -21,6 +14,13 @@ from code.model_training import (
     preprocess_data,
     compute_isf_metrics,
 )
+
+import numpy as np
+import pandas as pd
+from plotly import graph_objs as go
+from prefect import flow, task
+from sendgrid import SendGridAPIClient
+from evidently import ColumnMapping
 from evidently.report import Report
 from evidently.metrics import ColumnDriftMetric, DatasetDriftMetric
 from prefect.task_runners import SequentialTaskRunner
@@ -190,7 +190,7 @@ def load_datasets():
         'reference_val_data': reference_val_data,
         'current_data': current_data,
         'current_train_data': current_train_data,
-        'current_val_data': current_val_data
+        'current_val_data': current_val_data,
     }
 
 
@@ -270,7 +270,7 @@ def monitoring():
     current_data = datasets['current_data']
     current_train_data = datasets['current_train_data']
     current_val_data = datasets['current_val_data']
-    
+
     print("Datasets loaded. Loading models...")
 
     isf = load_model("isolation_forest")
