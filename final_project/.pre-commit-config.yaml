@@ -34,7 +34,7 @@ repos:
       name: pytest-check
       entry: python -m pytest
       language: system
-      pass_filenames: false
+      pass_filenames: true
       always_run: true
       args: [
         "tests/unit_tests.py"
