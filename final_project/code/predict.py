@@ -6,18 +6,14 @@ import pandas as pd
 import sklearn
 import xgboost as xgb
 from flask import Flask, jsonify, request
-from prefect import flow, task
-from prefect.task_runners import SequentialTaskRunner
 
 parent_dir = Path(__file__).resolve().parent
 sys.path.insert(0, str(parent_dir))
 
 from model_training import TARGET, ISF_VARIABLES
 
-### Prefect Tasks ###
 
 
-@task
 def preprocess_data(data: pd.DataFrame):
 
     print("Preprocessing Data...")
@@ -31,7 +27,6 @@ def preprocess_data(data: pd.DataFrame):
     return data
 
 
-@task
 def load_model(model_name: str):
 
     if model_name not in ["isolation_forest", "xgboost"]:
@@ -52,7 +47,6 @@ def load_model(model_name: str):
     return model
 
 
-@task
 def fit_model(model, train_data: pd.DataFrame):
 
     if not isinstance(
@@ -81,7 +75,6 @@ def fit_model(model, train_data: pd.DataFrame):
     return None
 
 
-@task
 def compute_predictions(model, pred_data: pd.DataFrame):
 
     print("Computing predictions...")
@@ -108,7 +101,6 @@ def compute_predictions(model, pred_data: pd.DataFrame):
 ### Main Method ###
 
 
-@flow(task_runner=SequentialTaskRunner())
 def make_predictions(pred_data):
 
     train_data_path = "../data/customer_churn_training_data.parquet"
