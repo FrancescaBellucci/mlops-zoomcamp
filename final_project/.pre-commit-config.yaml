@@ -32,7 +32,6 @@ repos:
   hooks:
     - id: pytest-check
       name: pytest-check
-      entry: python -m pytest
       entry: bash -c 'cd $(dirname "$0") && python -m pytest'
       language: system
       always_run: true
