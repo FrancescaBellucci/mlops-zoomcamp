@@ -37,5 +37,5 @@ repos:
       pass_filenames: true
       always_run: true
       args: [
-        "tests/unit_tests.py"
+        "tests/"
       ]
