@@ -38,3 +38,4 @@ repos:
       args: [
         "tests/unit_tests.py"
       ]
+      verbose: true
