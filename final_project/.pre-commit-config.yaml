@@ -33,7 +33,7 @@ repos:
     - id: pytest-check
       name: pytest-check
       entry: python -m pytest
-      entry: bash -c 'pwd && ls -l && python -m pytest tests/unit_tests.py'
+      entry: bash -c 'cd $(dirname "$0") && python -m pytest tests/unit_tests.py'
       language: system
       always_run: true
       args: [
