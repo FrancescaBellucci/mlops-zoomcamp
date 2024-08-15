@@ -9,7 +9,7 @@ xgboost==2.1.0
 optuna==3.6.1
 mlflow==2.15.1
 prefect==2.19.8
-Flask==1.1.2
+Flask==2.0.3
 gunicorn==22.0.0
 pipenv==2024.0.1
 plotly==5.23.0
@@ -26,3 +26,5 @@ backports.tarfile==1.2.0 #to ensure sendgrid compatibility
 jsonschema==4.23.0    #>=4.5 for prefect
 jinja2==3.0.3   #for MlFlow
 colorama==0.4.6
+itsdangerous==2.0.1 #for Flask
+werkzeug==0.16.1 #for Flask

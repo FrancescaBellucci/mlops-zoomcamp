@@ -8,6 +8,10 @@ import xgboost as xgb
 from pytest import approx
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+
+code_folder = Path(__file__).resolve().parent.parent / 'code'
+sys.path.insert(0, str(code_folder))
 
 import code.predict as predict
 import code.monitoring as monitoring

@@ -12,7 +12,8 @@ disable = [
     "wrong-import-position",
     "consider-using-from-import",
     "trailing-whitespace",
-    "broad-exception-caught"
+    "broad-exception-caught",
+    "import-error"
 ]
 
 [tool.black]

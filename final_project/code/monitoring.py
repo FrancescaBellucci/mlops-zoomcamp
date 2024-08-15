@@ -4,8 +4,15 @@ import shutil
 import datetime
 from typing import List, Optional
 from pathlib import Path
-from code.predict import fit_model, load_model, compute_predictions
-from code.model_training import (
+
+import numpy as np
+import pandas as pd
+from plotly import graph_objs as go
+from predict import fit_model, load_model, compute_predictions
+from prefect import flow, task
+from sendgrid import SendGridAPIClient
+from evidently import ColumnMapping
+from model_training import (
     TARGET,
     DATA_FILE,
     ISF_VARIABLES,
@@ -14,13 +21,6 @@ from code.model_training import (
     preprocess_data,
     compute_isf_metrics,
 )
-
-import numpy as np
-import pandas as pd
-from plotly import graph_objs as go
-from prefect import flow, task
-from sendgrid import SendGridAPIClient
-from evidently import ColumnMapping
 from evidently.report import Report
 from evidently.metrics import ColumnDriftMetric, DatasetDriftMetric
 from prefect.task_runners import SequentialTaskRunner
@@ -133,7 +133,7 @@ class MyMetricRenderer(MetricRenderer):
 
         return [
             header_text(
-                label=f"""The percentage of returning customers 
+                label=f"""The percentage of returning customers
                 within inliers is: {metric_result.pct_inliers_cur}"""
             ),
             header_text(
@@ -221,7 +221,7 @@ def generate_report(
 
     if report_name not in ['drift', 'isolation_forest', 'xgboost']:
         print(
-            """Error: unknown report. report_name can only be 
+            """Error: unknown report. report_name can only be
             \"drift\", \"isolation_forest\" or \"xgboost\"."""
         )
         return None
@@ -338,8 +338,8 @@ def monitoring():
 
         print("Isolation Forest performance is degrading. Sending email alert...")
 
-        html_content = f"""WARNING: Isolation Forest metrics lowered too much.\n 
-        The ratio of returning customers within anomalous data dropped by: 
+        html_content = f"""WARNING: Isolation Forest metrics lowered too much.\n
+        The ratio of returning customers within anomalous data dropped by:
         {pct_returning_diff} and the ratio of inliers dropped by: {pct_inliers_diff} ."""
 
         send_email(html_content)
@@ -350,7 +350,7 @@ def monitoring():
 
         print("XGBoost performance is degrading. Sending email alert...")
 
-        html_content = f"""WARNING: XGBoost metrics lowered too much. \n 
+        html_content = f"""WARNING: XGBoost metrics lowered too much. \n
         Recall dropped by: {recall_diff} and F1-score by: {f1_diff} ."""
 
         send_email(html_content)
@@ -363,10 +363,10 @@ def monitoring():
             "Data drift detected in Isolation Forest variables. Sending email alert..."
         )
 
-        html_content = f"""WARNING: A drift was detected in one or more of the employed 
-        to train the model Isolation Forest. 
-        You might want to investigate whether to change said variables. \n 
-        Drift detected in variables: 
+        html_content = f"""WARNING: A drift was detected in one or more of the employed
+        to train the model Isolation Forest.
+        You might want to investigate whether to change said variables. \n
+        Drift detected in variables:
         {np.array(ISF_VARIABLES+[TARGET])[isf_drift].tolist()}"""
 
         send_email(html_content)

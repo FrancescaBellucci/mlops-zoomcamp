@@ -1,7 +1,6 @@
 import sys
 import pickle
 from pathlib import Path
-from code.model_training import TARGET, ISF_VARIABLES
 
 import pandas as pd
 import sklearn
@@ -12,6 +11,8 @@ from prefect.task_runners import SequentialTaskRunner
 
 parent_dir = Path(__file__).resolve().parent
 sys.path.insert(0, str(parent_dir))
+
+from model_training import TARGET, ISF_VARIABLES
 
 ### Prefect Tasks ###
 
@@ -59,7 +60,7 @@ def fit_model(model, train_data: pd.DataFrame):
     ):
 
         print(
-            """Error: model unknown. 
+            """Error: model unknown.
             The only acceptable types of models are isolation forest and xgboost."""
         )
         return None
@@ -90,7 +91,7 @@ def compute_predictions(model, pred_data: pd.DataFrame):
     ):
 
         print(
-            """Error: model unknown. 
+            """Error: model unknown.
             The only acceptable types of models are isolation forest and xgboost."""
         )
         return None
