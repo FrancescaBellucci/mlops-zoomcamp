@@ -26,14 +26,13 @@ colorama=="0.4.6"
 
 [dev-packages]
 requests = "2.32.3"
-django = "*"
 sendgrid=="6.0.5"
 backports.tarfile=="1.2.0"
 pytest=="7.1.1"
 deepdiff=="7.0.1"
 pylint=="3.2.6"
 black=="124.8.0"
-isort=="5.9.3"
+isort=="5.10.1
 pre-commit=="3.8.0"
 
 [requires]
