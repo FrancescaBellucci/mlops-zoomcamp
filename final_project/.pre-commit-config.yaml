@@ -35,6 +35,6 @@ repos:
       entry: python -m pytest
       language: system
       always_run: true
-      # args: [
-      #   "tests/unit_tests.py"
-      # ]
+      args: [
+        "tests/unit_tests.py"
+      ]
