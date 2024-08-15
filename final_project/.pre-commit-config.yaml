@@ -32,10 +32,10 @@ repos:
   hooks:
     - id: pytest-check
       name: pytest-check
-      entry: python -m pytest
+      entry: pytest
       language: system
       pass_filenames: true
       always_run: true
       args: [
-        "./tests/unit_tests.py"
+        "tests/unit_tests.py"
       ]
