@@ -3,7 +3,7 @@ FROM python:3.9.12-slim
 RUN pip install -U pip
 RUN pip install pipenv
 
-WORKDIR /web_service
+WORKDIR /app
 
 #Copy Piplock and Pipfile.lock in the main folder
 COPY ["Pipfile", "Pipfile.lock", "./"]

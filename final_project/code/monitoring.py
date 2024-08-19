@@ -194,7 +194,7 @@ def load_datasets():
     }
 
 
-@flow
+@task
 def compute_predictions_df(pred_data: pd.DataFrame, isf, xgb_classifier):
 
     pred_data['Anomalies'] = compute_predictions(isf, pred_data.drop(TARGET, axis=1))
