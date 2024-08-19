@@ -17,6 +17,7 @@ The dataset used for this project contains information about bank customers, and
 Conda and a pipfile environment have been created for this project. Requirements and dependences are all listed. Python 3.9.12 has been used. 
 AWS has been used for storage and for running the MlFlow server. 
 Docker and flask have been used for deployment. 
+Sendgrid has been used for email alerts (a Sendgrid account is necessary).
 
 ### Preliminary Analysis and Models Used 
 
@@ -35,6 +36,7 @@ The MLFlow UI can be accessed at the following link:
 ### Workflow Orchestration and Deployment
 Prefect has been used for workflow orchestration, for model training and monitoring. 
 The workflow for training models is fully deployed, with Process-type workers, and the code is stored in S3. The same S3 bucket used for MLFlow is employed also for prefect, but folders are diversified.
+Training workflows are scheduled to start every day at midnight, but the worker activation is not automated.
 The prefect server is allocated on port 4200 and the UI can be accessed via [this link](http://127.0.0.1:4200) after starting the server from the terminal (````prefect server start````.).
 
 ### Deployment
@@ -56,7 +58,11 @@ The monitoring workflow can currently only be triggered manually by running ````
 
 ## Instructions
 
-
+* Open the ````.env```` file and edit AWS credentials and email credentials. You will have to generate an AWS secret access key and key ID to access AWS remotely. Create the S3 bucket, PostgreSQL database, and EC2 instance with running MLFlow server in order to be able to run the training pipelines efficiently. You will have to install mlflow, psycopg2-binary and boto3 on your instance. Make sure that email sender and recipient are different. 
+* Create the environment by typing ````make setup```` in the terminal. This will create the dev environment, which has access to all the functionalities. To activate it, run ````pipenv shell````.
+* Training flows are accessible through the [Prefect UI](http://127.0.0.1:4200) after starting the server from the terminal (````prefect server start````.). Make sure to activate the workers first by typing ````prefect worker start --pool training````.
+* The MLFlow UI can be accessed at ````http:\\mlops-zoomcamp-mlflow.czwc40222kzm.eu-central-1.rds.amazonaws.com:5000````.
+* To be able run the model locally and make predictions, run ````make build_docker_container```` and ````make run_docker_container````. This will also run tests and integration tests. 
 
 
 
