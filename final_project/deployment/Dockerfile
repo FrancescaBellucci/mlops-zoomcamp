@@ -12,7 +12,7 @@ COPY ["Pipfile", "Pipfile.lock", "./"]
 RUN pipenv install --system --deploy
 
 #Copy necessary files for prediction code to work in the correct folder
-COPY ["./code/predict.py", "./code/model_training.py", "./code/__init__.py", "./code/"]
+COPY ["./code/predict.py", "./code/model_training.py", "./code/__init__.py", "./code/test_predictions.py", "./code/"]
 COPY ["./models/isolation_forest.bin", "./models/xgboost.bin", "./models/"]
 COPY ["./data/customer_churn_training_data.parquet", "./data/"]
 
