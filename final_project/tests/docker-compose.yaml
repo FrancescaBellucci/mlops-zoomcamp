@@ -1,0 +1,8 @@
+version : '3.8'
+services:
+  integration-test:
+    build: 
+      context: ../
+      dockerfile: ./deployment/Dockerfile
+    ports:
+      - "9696:9696"
