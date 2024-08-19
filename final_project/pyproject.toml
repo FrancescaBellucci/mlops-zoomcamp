@@ -15,11 +15,7 @@ disable = [
     "broad-exception-caught",
     "import-error",
     "unused-argument",
-    "unused-variable",
-    "too-many-locals",
-    "too-many-statements",
-    "redefined-outer-name",
-    "duplicate-code"
+    "unused-variable"
 ]
 
 [tool.black]

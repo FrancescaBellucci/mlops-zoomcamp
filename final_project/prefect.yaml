@@ -1,0 +1,77 @@
+# Welcome to your prefect.yaml file! You can use this file for storing and managing
+# configuration for deploying your flows. We recommend committing this file to source
+# control along with your flow code.
+
+# Generic metadata about this project
+name: bank_prediction_churn
+prefect-version: 2.20.2
+
+# build section allows you to manage and build docker images
+build:
+- null
+# push section allows you to manage if and how this project is uploaded to remote locations
+push:
+- prefect_aws.deployments.steps.push_to_s3:
+    id: push_code
+    requires: prefect-aws>=0.3.4
+    bucket: "mlops-zoomcamp-2024-bank-churn"
+    folder: final_project
+
+# pull section allows you to provide instructions for cloning this project in remote locations
+pull:
+- prefect_aws.deployments.steps.pull_from_s3:
+    id: pull_code
+    requires: prefect-aws>=0.3.4
+    bucket: '{{ push_code.bucket }}'
+    folder: '{{ push_code.folder }}'
+
+# the deployments section allows you to provide configuration for deploying flows
+deployments:
+- name: train_isf
+  version: 1.0
+  tags: ['training', 'isolation_forest']
+  description: "Training pipeline for isolation forest"
+  schedule: 
+    cron: "0 0 * * *" 
+  flow_name: training_isf
+  entrypoint: "./code/model_training.py"
+  parameters:
+    model: isolation_forest
+    DATA_FILE: ./data/customer_churn_records.parquet
+    save_data: True
+  work_pool:
+    name: training
+    work_queue_name: null
+    job_variables:
+      image: '{{ build_image.image }}'
+- name: train_xgb
+  version: 1.0
+  tags: ['training', 'xgb']
+  description: "Training pipeline for xgboost"
+  schedule: 
+    cron: "0 0 * * *" 
+  flow_name: training_xgb
+  entrypoint: "./code/model_training.py"
+  parameters:
+    model: xgboost
+    DATA_FILE: ./data/customer_churn_records.parquet
+    save_data: True
+  work_pool:
+    name: training
+    work_queue_name: null
+    job_variables:
+      image: '{{ build_image.image }}'
+# - name: monitoring
+#   version: 1.0
+#   tags: ['monitoring']
+#   description: "Monitoring pipeline"
+#   schedule: 
+#     cron: "0 0 * * *" 
+#   flow_name: monitoring
+#   entrypoint: "./code/monitoring.py"
+#   parameters: {}
+#   work_pool:
+#     name: "monitoring"
+#     work_queue_name: null
+#     job_variables:
+#       image: '{{ build_image.image }}'
