@@ -1,7 +1,9 @@
+import os
 import sys
 import pickle
 from pathlib import Path
 
+import boto3
 import numpy as np
 import mlflow
 import optuna
@@ -20,9 +22,14 @@ sys.path.insert(0, str(parent_dir))
 ### Global Variables ###
 RANDOM_STATE = 2024
 
-MLFLOW_TRACKING_URI = "sqlite:///../bank_churn.db"
+AWS_DEFAULT_REGION = os.getenv("AWS_DEFAULT_REGION")
+AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
 
-N_TRIALS = 50
+MLFLOW_TRACKING_URI = os.getenv("MLFLOW_TRACKING_URI")
+ARTIFACT_PATH = os.getenv("MLFLOW_ARTIFACT_PATH")
+
+N_TRIALS = 25
 
 ISF_VARIABLES = ['Age', 'Complain', 'NumOfProducts']
 TARGET = 'Exited'
@@ -94,6 +101,8 @@ def optimize_model(model_name: str, train_data: pd.DataFrame, val_data: pd.DataF
     # Objective function for xgboost
     def objective_xgb(trial):
 
+        mlflow.end_run()
+
         with mlflow.start_run(run_name="xgboost_classifier"):
             mlflow.set_tag("Project", "bank_churn_prediction")
             mlflow.set_tag("Developer", "Francesca")
@@ -128,12 +137,14 @@ def optimize_model(model_name: str, train_data: pd.DataFrame, val_data: pd.DataF
             mlflow.log_metric("recall", recall)
             mlflow.log_metric("f1_score", f1)
 
-            mlflow.xgboost.log_model(classifier, artifact_path="mlflow_models")
+            mlflow.xgboost.log_model(classifier, artifact_path="model/")
 
         return recall
 
     # Objective function for isolation forest
     def objective_isf(trial):
+
+        mlflow.end_run()
 
         with mlflow.start_run(run_name="anomaly_detection"):
             mlflow.set_tag("Project", "bank_churn_prediction")
@@ -165,7 +176,7 @@ def optimize_model(model_name: str, train_data: pd.DataFrame, val_data: pd.DataF
             mlflow.log_metric("pct_inliers", pct_inliers)
             mlflow.log_metric("score", score)
 
-            mlflow.sklearn.log_model(isf, artifact_path="mlflow_models")
+            mlflow.sklearn.log_model(isf, artifact_path="model/")
 
         return score
 
@@ -196,8 +207,6 @@ def register_model(best_trial, model_name: str):
     print("Registering best model...")
 
     model_path = '../models/' + model_name + '.bin'
-
-    # client = MlflowClient("http://127.0.0.1:5000")
 
     run_id = CLIENT.search_runs(experiment_ids=['1'])[
         N_TRIALS - best_trial.number
@@ -266,12 +275,19 @@ def preparing_xgboost_data(train_data: pd.DataFrame, val_data: pd.DataFrame):
 
 if __name__ == "__main__":
 
+    print("starting boto3 session...")
+    session = boto3.Session(
+        aws_access_key_id=AWS_ACCESS_KEY_ID,
+        aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
+        region_name=AWS_DEFAULT_REGION,
+    )
+
     mlflow.set_tracking_uri(MLFLOW_TRACKING_URI)
     mlflow.set_experiment("bank_churn_prediction")
     CLIENT = MlflowClient(tracking_uri=MLFLOW_TRACKING_URI)
 
     # Edit these to change model and possibility to save data
-    model = "isolation_forest"
+    model = "xgboost"
     save_data = False
 
     train_model(model, DATA_FILE, save_data)

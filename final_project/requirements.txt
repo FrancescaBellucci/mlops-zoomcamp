@@ -8,7 +8,7 @@ scikit-learn==1.5.1
 xgboost==2.1.0
 optuna==3.6.1
 mlflow==2.15.1
-prefect==2.19.8
+prefect
 Flask==2.0.3
 gunicorn==22.0.0
 pipenv==2024.0.1
@@ -28,3 +28,9 @@ jinja2==3.0.3   #for MlFlow
 colorama==0.4.6
 itsdangerous==2.0.1 #for Flask
 werkzeug==0.16.1 #for Flask
+
+aws==0.2.5
+boto3 #for aws
+psycopg2==2.9.9 #for aws
+prefect_aws==0.4.19 #for prefect + aws
+pyopenssl==24.2.1 #for aws compatibility

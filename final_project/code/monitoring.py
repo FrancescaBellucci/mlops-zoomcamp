@@ -19,7 +19,7 @@ from model_training import (
     train_model,
     prepare_dataset,
     preprocess_data,
-    compute_isf_metrics,
+    compute_isf_metrics
 )
 from evidently.report import Report
 from evidently.metrics import ColumnDriftMetric, DatasetDriftMetric
