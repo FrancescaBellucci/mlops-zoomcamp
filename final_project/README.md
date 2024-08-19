@@ -1,7 +1,6 @@
 # Bank Customer Churn Prediction 
 
 This is my final project for the [MLOps ZoomCamp](https://github.com/DataTalksClub/mlops-zoomcamp/tree/main) course. The goal is to build an end-to-end machine learning project applying all the tools and concepts seen in the course. 
-For each subfolder, you will find a README file describing its content and explaining the methodology and the logic behind the choices I made.
 The following paragraphs will give an overview of the problem, the dataset, and the adopted methodology. You can skip to the instructions by clicking [here](#Instructions)
 
 ## Problem Description
@@ -14,16 +13,49 @@ The dataset used for this project contains information about bank customers, and
 
 ## Project Outline
 
-The models chosen to tackle the problem are Isolation Forests and XGBoost. The methodology adopted is the following: 
-* An initial exploratory data analysis and first model experiments have been performed in two separate jupyter notebooks (stored in the [code](https://github.com/FrancescaBellucci/mlops-zoomcamp/blob/main/final_project/code/) folder), with the scope of defining a pre-processing method, selecting the models, and setting up the MLFlow toolkit. The ratio behind the choice of implemented Machine Learning models is explained in [MODELS.md](https://github.com/FrancescaBellucci/mlops-zoomcamp/blob/main/final_project/models/MODELS.md).
-* MLFow has been used for experiment tracking and model registry. Runs are saved locally and can be accessed via port 5000 after entering the following line in the terminal:
-```` mlflow server --backend-store-uri sqlite:///bank_churn.db --default-artifact-root ../artifacts ````
-* Prefect has been used for pipelines. The prefect server is allocated on port 4200 and the UI can be accessed via [this link](http://127.0.0.1:4200) after starting the server from the terminal.
-* The model is deployed locally and requests can be sent through port 9696. The app is wrapped in a a Docker container.
-* Monitoring is done using Evidently AI. Data drift and model performances are tracked. Email alerts are sent in case of data drift or performance degradation, and, if data drift is detected, models are retrained and updated.
-* Unit tests are run on all the methods, excluding those in which files as saved, to avoid overwriting files that are crucial to the project. 
+### Setup
+Conda and a pipfile environment have been created for this project. Requirements and dependences are all listed. Python 3.9.12 has been used. 
+AWS has been used for storage and for running the MlFlow server. 
+Docker and flask have been used for deployment. 
+
+### Preliminary Analysis and Models Used 
+
+An initial exploratory data analysis and first model experiments have been performed in two separate jupyter notebooks (stored in the [code](https://github.com/FrancescaBellucci/mlops-zoomcamp/blob/main/final_project/code/) folder), with the scope of defining a pre-processing method, selecting the models, and setting up the MLFlow toolkit. The ratio behind the choice of implemented Machine Learning models is explained in [MODELS.md](https://github.com/FrancescaBellucci/mlops-zoomcamp/blob/main/final_project/models/MODELS.md).
+
+The models chosen to tackle the problem are Isolation Forests and XGBoost. The ratio behind this decision is explained in the [Model FAQ](https://github.com/FrancescaBellucci/mlops-zoomcamp/blob/main/final_project/models/MODELS.md).
+
+### MLFlow
+
+MLFow has been used for experiment tracking and model registry. Runs are saved in AWS S3, the PostgreSQL db collecting MlFlow data is hosted in AWS and the MLFlow server is run on an EC2 instance with elastic IP. 
+AWS credentials are stored in an [.env]() file. The setup assumes that the final user has already configured the database, S3 bucket, and EC2 instance necessary for MLFlow to work. 
+The MLFlow UI can be accessed at the following link:
+````http:\\mlops-zoomcamp-mlflow.czwc40222kzm.eu-central-1.rds.amazonaws.com:5000````.
+
+
+### Workflow Orchestration and Deployment
+Prefect has been used for workflow orchestration, for model training and monitoring. 
+The workflow for training models is fully deployed, with Process-type workers, and the code is stored in S3. The same S3 bucket used for MLFlow is employed also for prefect, but folders are diversified.
+The prefect server is allocated on port 4200 and the UI can be accessed via [this link](http://127.0.0.1:4200) after starting the server from the terminal (````prefect server start````.).
+
+### Deployment
+The model is deployed locally and requests can be sent through port 9696. The app is wrapped in a a Docker container.
+
+### Monitoring
+Monitoring is done using Evidently AI. Data drift and model performances are tracked. Email alerts are sent in case of data drift or performance degradation, and, if data drift is detected, models are retrained and updated.
+Evidently reports are stored in a [dedicated folder]() and can be visualized in the notebook [_visualize_reports.jpynb_](https://github.com/FrancescaBellucci/mlops-zoomcamp/blob/main/final_project/code/visualize_reports.ipynb)).
+The monitoring workflow can currently only be triggered manually by running ````python monitoring.py```` from the folder ````code````.
+
+### Tests
+*Unit tests are run on all the methods, excluding those in which files as saved, to avoid overwriting files that are crucial to the project. 
+*There is an integration test. 
+
+### Best Practices
+* Linter and code formatters are used (isort, black, pylint)
+* There is a Makefile
+* There are pre-commit hooks
 
 ## Instructions
+
 
 
 
