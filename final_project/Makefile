@@ -25,4 +25,3 @@ build_docker_container: quality_checks test integration_test
 run_docker_container: build_docker_container
 	docker run -it --rm -p 9696:9696 bank-churn-prediction-service:v1
 
-
