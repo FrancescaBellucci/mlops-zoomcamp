@@ -420,8 +420,8 @@ def send_email(html_content: str):
 
 if __name__ == "__main__":
 
-    SENDER_EMAIL = 'your.sendgrid.email@domain.com'
-    RECIPIENT_EMAIL = 'recipient.email@domain.com'
-    SENDGRID_API_KEY = 'your Sendgrid API key'
+    SENDER_EMAIL = os.getenv("SENDER_EMAIL")
+    RECIPIENT_EMAIL = os.getenv("RECIPIENT_EMAIL")
+    SENDGRID_API_KEY = os.getenv("SENDGRID_API_KEY")
 
     monitoring()
