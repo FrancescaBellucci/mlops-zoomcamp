@@ -13,7 +13,13 @@ disable = [
     "consider-using-from-import",
     "trailing-whitespace",
     "broad-exception-caught",
-    "import-error"
+    "import-error",
+    "unused-argument",
+    "unused-variable",
+    "too-many-locals",
+    "too-many-statements",
+    "redefined-outer-name",
+    "duplicate-code"
 ]
 
 [tool.black]

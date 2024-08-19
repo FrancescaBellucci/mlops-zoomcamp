@@ -13,7 +13,6 @@ sys.path.insert(0, str(parent_dir))
 from model_training import TARGET, ISF_VARIABLES
 
 
-
 def preprocess_data(data: pd.DataFrame):
 
     print("Preprocessing Data...")

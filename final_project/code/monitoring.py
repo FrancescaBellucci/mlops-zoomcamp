@@ -276,8 +276,6 @@ def monitoring():
     isf = load_model("isolation_forest")
     xgb_classifier = load_model("xgboost")
 
-    print("Models loaded. Fitting models...")
-
     fit_model(isf, current_train_data)
     fit_model(xgb_classifier, current_train_data)
 
@@ -289,16 +287,12 @@ def monitoring():
     )
 
     print("Predictions computed. Generating reports...")
-
-    print("Generating Isolation Forest report...")
     isf_report = generate_report(
         reference_pred_data, current_pred_data, 'isolation_forest'
     )
 
-    print("Generating XGBoost report...")
     xgb_report = generate_report(reference_pred_data, current_pred_data, 'xgboost')
 
-    print("Generating data drift report...")
     drift_report = generate_report(reference_data, current_data, 'drift')
 
     print("Reports generated. Storing relevant results...")

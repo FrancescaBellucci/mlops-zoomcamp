@@ -1,5 +1,3 @@
-from unittest.mock import patch
-
 import requests
 from deepdiff import DeepDiff
 
@@ -34,6 +32,7 @@ def test_prediction_app():
 
 
 # For offline test
+# from unittest.mock import patch
 # @patch('requests.post')
 # def test_predictions(mock_post):
 # mock_post.return_value = {"prediction": 0}
