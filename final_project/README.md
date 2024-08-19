@@ -62,7 +62,27 @@ The monitoring workflow can currently only be triggered manually by running ````
 * Create the environment by typing ````make setup```` in the terminal. This will create the dev environment, which has access to all the functionalities. To activate it, run ````pipenv shell````.
 * Training flows are accessible through the [Prefect UI](http://127.0.0.1:4200) after starting the server from the terminal (````prefect server start````.). Make sure to activate the workers first by typing ````prefect worker start --pool training````.
 * The MLFlow UI can be accessed at ````http:\\mlops-zoomcamp-mlflow.czwc40222kzm.eu-central-1.rds.amazonaws.com:5000````.
-* To be able run the model locally and make predictions, run ````make build_docker_container```` and ````make run_docker_container````. This will also run tests and integration tests. 
+* You can run the monitoring pipeline by typing ````cd code```` followed by ````python monitoring.py````. You can view the monitoring reports in the Jupyter notebook ````visualixe_reports.jpynb````. You will receive an email at the address you indicated if performance is degrading or retraining is necessary. 
+* To be able run the model locally and make predictions, run ````make build_docker_container```` and ````make run_docker_container````. This will also run tests and integration tests.
+* You can use the following template for a prediction: 
+bank_customer = {
+        "CreditScore": 500,
+        "Geography": "Germany",
+        "Gender": "Female",
+        "Age": 42,
+        "Tenure": 3,
+        "Balance": 1000,
+        "NumOfProducts": 1,
+        "HasCrCard": 1,
+        "IsActiveMember": 1,
+        "EstimatedSalary": 50000,
+        "Complain": 0,
+        "SatisfactionScore": 3,
+        "Card Type": "GOLD",
+        "Point Earned": 450,
+    }.
+* You can run tests by typing ````make test```` or ````make integration_test```` in the terminal.
+
 
 
 
