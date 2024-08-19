@@ -81,7 +81,7 @@ bank_customer = {
         "Card Type": "GOLD",
         "Point Earned": 450,
     }.
-You can edit the input in the file ````test_predictions.py```` and try out the model by running ```cd code``` and ````python test_predictions.py````.
+You can edit the input in the file ````test_predictions.py```` and try out the model by running ````python test_predictions.py```` from the ````code```` folder.
 * You can run tests by typing ````make test```` or ````make integration_test```` in the terminal.
 
 
