@@ -27,7 +27,7 @@ The models chosen to tackle the problem are Isolation Forests and XGBoost. The r
 ### MLFlow
 
 MLFow has been used for experiment tracking and model registry. Runs are saved in AWS S3, the PostgreSQL db collecting MlFlow data is hosted in AWS and the MLFlow server is run on an EC2 instance with elastic IP. 
-AWS credentials are stored in an [.env]() file. The setup assumes that the final user has already configured the database, S3 bucket, and EC2 instance necessary for MLFlow to work. 
+AWS credentials are stored in an [.env](https://github.com/FrancescaBellucci/mlops-zoomcamp/blob/main/final_project/.env) file. The setup assumes that the final user has already configured the database, S3 bucket, and EC2 instance necessary for MLFlow to work. 
 The MLFlow UI can be accessed at the following link:
 ````http:\\mlops-zoomcamp-mlflow.czwc40222kzm.eu-central-1.rds.amazonaws.com:5000````.
 
@@ -42,7 +42,7 @@ The model is deployed locally and requests can be sent through port 9696. The ap
 
 ### Monitoring
 Monitoring is done using Evidently AI. Data drift and model performances are tracked. Email alerts are sent in case of data drift or performance degradation, and, if data drift is detected, models are retrained and updated.
-Evidently reports are stored in a [dedicated folder]() and can be visualized in the notebook [_visualize_reports.jpynb_](https://github.com/FrancescaBellucci/mlops-zoomcamp/blob/main/final_project/code/visualize_reports.ipynb)).
+Evidently reports are stored in a [dedicated folder](https://github.com/FrancescaBellucci/mlops-zoomcamp/tree/main/final_project/monitoring/reports) and can be visualized in the notebook [_visualize_reports.jpynb_](https://github.com/FrancescaBellucci/mlops-zoomcamp/blob/main/final_project/code/visualize_reports.ipynb)).
 The monitoring workflow can currently only be triggered manually by running ````python monitoring.py```` from the folder ````code````.
 
 ### Tests
